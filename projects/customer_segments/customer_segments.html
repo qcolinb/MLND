@@ -12329,7 +12329,7 @@ Score for Delicatessen: -2.25
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f5529e7c4e0&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f807b99c470&gt;</pre>
 </div>
 
 </div>
@@ -12467,7 +12467,7 @@ Score for Delicatessen: -2.25
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f5529ba50f0&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f807b6e9588&gt;</pre>
 </div>
 
 </div>
@@ -12883,13 +12883,13 @@ Variance explained by first 6 components: 100.00%
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ul>
-<li>First 2 principal components explain 44.3% of variance</li>
-<li>First 4 principal components explain 70.7% of variance</li>
+<li>First 2 principal components explain 70.68% of variance</li>
+<li>First 4 principal components explain 93.11% of variance</li>
 <li>Dimension analysis:<ul>
-<li>Dimension 1: correlates negatively and more strongly with Detergent_Products and with Milk and Grocery to a lesser degree. The fact that they are all in the same direction suggests these features vary together. This dimension alone explains 44.3% of total variance</li>
-<li>Dimension 2: has negative association with Fresh, Frozen and Delicatessen, all of which vary together in the same direction. This dimension represents 26.4% of total variance</li>
-<li>Dimension 3: has a strong negative association with Fresh while a positive one with Delicatessen and Frozen. Captures 12.3% of variance</li>
-<li>Dimension 4: has a strong negative association with Frozen while a positive one with Delicatessen. Captures 10.1% of variance</li>
+<li>Dimension 1: correlates negatively and more strongly with Detergent_Products and with Milk and Grocery to a lesser degree. The fact that they are all in the same direction suggests these features vary together. We can interpret this dimension as a split between Retailers and other types of customers. This dimension alone explains 44.3% of total variance</li>
+<li>Dimension 2: has negative association with Fresh, Frozen and Delicatessen, all of which vary together in the same direction. We can interpret this dimension as a split between Restaurants/Hotels/Cafes and other types of customers. This dimension represents 26.4% of total variance</li>
+<li>Dimension 3: has a strong negative association with Fresh while a positive one with Delicatessen and Frozen. We can interpret such dimension as a split between types of services: i.e., Restaurants vs Hotels and Cafes. Captures 12.3% of variance</li>
+<li>Dimension 4: has a strong negative association with Frozen while a positive one with Delicatessen. We can interpret this as a further split among Hotels and Cafes (the former related to higher Frozen consumption vs the latter related to higher Delicatessen consumption). Captures 10.1% of variance</li>
 </ul>
 </li>
 </ul>
@@ -13151,7 +13151,7 @@ Variance explained by first 6 components: 100.00%
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f551ca11080&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f807c0a5c50&gt;</pre>
 </div>
 
 </div>
@@ -13554,12 +13554,117 @@ Silhouette score for 14 clusters: 0.34
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ul>
-<li>Segment 0 represents an establishment where spending on Fresh and Frozen is relatively larger, which would be natural of service establishment such as a Restaurant or Cafe</li>
-<li>Segment 1 represents an establishment where spending on Milk, Grocery and Detergents_Paper is relatively larger, which would be the case for any supermarket or convencience store</li>
+<li>Segment 0 represents an establishment where spending on Fresh and Frozen is relatively larger (over twice spend when compared to Segment 1 centroid), which would be natural of a service establishment such as a Restaurant or Cafe. When comparing to the overall dataset, we see that Segment 0 spending is still lower than mean values for these products across the entire dataset. This is driven by the fact that cluster averages are calculated in a transformed space (log + pca) and hence, are less affected by long tail values and outliers</li>
+<li>Segment 1 represents an establishment where spending on Milk, Grocery and Detergents_Paper is relatively larger, which would be the case for any supermarket or convencience store. When comparing to the overall dataset, we observe that spending for Milk, Grocery and Detergents_Paper is also larger than full dataset means, clearly outlining a different type of customer</li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Select three indices of your choice you wish to sample from the dataset</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
+
+<span class="c1"># Create a DataFrame of the chosen samples</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Chosen samples of wholesale customers dataset:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Chosen samples of wholesale customers dataset:
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7579</td>
+      <td>4956</td>
+      <td>9426</td>
+      <td>1669</td>
+      <td>3321</td>
+      <td>2566</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4113</td>
+      <td>20484</td>
+      <td>25957</td>
+      <td>1158</td>
+      <td>8604</td>
+      <td>5206</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>24025</td>
+      <td>4332</td>
+      <td>4757</td>
+      <td>9510</td>
+      <td>1145</td>
+      <td>5864</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -13576,7 +13681,7 @@ Silhouette score for 14 clusters: 0.34
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the predictions</span>
@@ -13609,13 +13714,103 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">samples</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[25]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.256767</td>
+      <td>0.167903</td>
+      <td>0.319341</td>
+      <td>0.056544</td>
+      <td>0.112511</td>
+      <td>0.086933</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.062773</td>
+      <td>0.312628</td>
+      <td>0.396157</td>
+      <td>0.017673</td>
+      <td>0.131315</td>
+      <td>0.079454</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.484053</td>
+      <td>0.087281</td>
+      <td>0.095843</td>
+      <td>0.191606</td>
+      <td>0.023069</td>
+      <td>0.118147</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ul>
-<li>All three predictions as in line with our initial guesses</li>
+<li>Sample point 0 exhibits relative larger spending in Grocery, followed by Fresh and Milk. It is predicted to be a Retailer, which is inline with our original guess. Its spending relative to cluster centers indicates this might be a small store</li>
+<li>Sample point 1 exhibits relative larger spending in Grocery and Milk. It is predicted to be a Retailer, which is inline with our original estimate. Its spending in retail products is twice that of segment average, which suggests this is a large store</li>
+<li>Sample point 2 exhibits largest spending in Fresh produce, followed by Frozen and Delicatessen. It is predicted to be a Restaurant, inline with our original estimate. Given the high spending on such products relative to Cluster 0 centroid, we can think of this as a large restaurant or hotel</li>
 </ul>
 
 </div>
@@ -13705,7 +13900,7 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the clustering results based on &#39;Channel&#39; data</span>
